@@ -1,23 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import "./App.css";
+import BankItem from "./components/BankItem";
 
 function App() {
+  const [bankAccounts, setBankAccounts] = useState(null);
+
+  useEffect(() => {
+    // do something on load
+    console.log("Hello there! general kenobi!");
+
+    if (!bankAccounts) {
+      fetch("http://localhost:8080/api/banks/").then((response) =>
+        response.json().then((data) => {
+          console.log(`bank accounts: `, data);
+          setBankAccounts(data);
+        })
+      );
+    }
+  }, [bankAccounts]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        {bankAccounts
+          ? bankAccounts.map((bankAccount) => {
+              return <BankItem key={bankAccount.id} data={bankAccount} />;
+            })
+          : "loading data..."}
+      </div>
     </div>
   );
 }
