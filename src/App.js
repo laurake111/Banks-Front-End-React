@@ -20,11 +20,30 @@ function App() {
   }, [bankAccounts]);
 
   return (
-    <div className="App">
+    <div class="container">
       <div>
         {bankAccounts
           ? bankAccounts.map((bankAccount) => {
-              return <BankItem key={bankAccount.id} data={bankAccount} />;
+              return (
+                <div>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>id</th>
+                        <th>accountNumber</th>
+                        <th>trust</th>
+                        <th>transactionFee</th>
+                        <th>person name</th>
+                        <th>age</th>
+                        <th>levenshtein score</th>
+                        <th>levenshtein score w/ Laura</th>
+                      </tr>
+                    </thead>
+                    <BankItem key={bankAccount.id} data={bankAccount} />
+                  </table>
+                  
+                </div>
+              );
             })
           : "loading data..."}
       </div>
