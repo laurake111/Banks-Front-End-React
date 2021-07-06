@@ -1,51 +1,23 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import "./App.css";
-import BankItem from "./components/BankItem";
+import "bootstrap/dist/css/bootstrap.min.css";
+import CreateBankComponent from "./components/CreateBankComponent";
+import BankComponent from "./components/BankComponent";
 
 function App() {
-  const [bankAccounts, setBankAccounts] = useState(null);
-
-  useEffect(() => {
-    // do something on load
-    console.log("Hello there! general kenobi!");
-
-    if (!bankAccounts) {
-      fetch("http://localhost:8080/api/banks/").then((response) =>
-        response.json().then((data) => {
-          console.log(`bank accounts: `, data);
-          setBankAccounts(data);
-        })
-      );
-    }
-  }, [bankAccounts]);
-
   return (
-    <div class="container">
-      <div>
-        {bankAccounts
-          ? bankAccounts.map((bankAccount) => {
-              return (
-                <div>
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th>id</th>
-                        <th>accountNumber</th>
-                        <th>trust</th>
-                        <th>transactionFee</th>
-                        <th>person name</th>
-                        <th>age</th>
-                        <th>levenshtein score</th>
-                        <th>levenshtein score w/ Laura</th>
-                      </tr>
-                    </thead>
-                    <BankItem key={bankAccount.id} data={bankAccount} />
-                  </table>
-                  
-                </div>
-              );
-            })
-          : "loading data..."}
+    <div className="container">
+      <div className="row">
+        <h1>Bank accounts table</h1>
+      </div>
+      <div className="row">
+        <div className="col">
+          <BankComponent></BankComponent>
+        </div>
+        <div className="col">
+          <CreateBankComponent></CreateBankComponent>
+        </div>
       </div>
     </div>
   );
