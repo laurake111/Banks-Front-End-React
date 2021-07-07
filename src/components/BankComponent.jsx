@@ -1,68 +1,67 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import BankService from "../services/BankService";
 
-class BankComponent extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      banks: [],
+function BankComponent() {
+  const [banks, setBanks] = useState([]);
+  //const [bankId, setId] = useState([1]);
+  useEffect(() => {
+    const fetchBanks = async () => {
+      const result = await BankService.getBanks();
+      setBanks(result.data);
     };
 
-    this.deleteBank = this.deleteBank.bind(this);
+    fetchBanks();
+
+    // empty dependency array [] means this effect will only run once (like componentDidMount in classes)
+  }, []);
+
+  async function deleteBank(bankId) {
+    await BankService.deleteBank(bankId);
+    window.location.reload();
   }
 
-  deleteBank(id) {
-      BankService.deleteBank(id).then( res => {
-          this.setState({banks: this.state.banks.filter(bank => bank.id !== id)})
-      });
-  }
-
-  componentDidMount() {
-    BankService.getBanks().then((response) => {
-      this.setState({ banks: response.data });
-    });
-  }
-
-  render() {
-    return (
-      <table class="table">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Account number</th>
-            <th>Trust</th>
-            <th>Transaction fee</th>
-            <th>Client name</th>
-            <th>Client Age</th>
-            <th>LS score</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {this.state.banks.map((bank) => (
-            <tr key={bank.id}>
-              <td>{bank.id}</td>
-              <td>{bank.accountNumber}</td>
-              <td>{bank.trust}</td>
-              <td>{bank.transactionFee}</td>
-              <td>{bank.personName}</td>
-              <td>{bank.age}</td>
-              <td>{bank.levenshteinScore}</td>
-              <td>
-                <button
-                  onClick={() => this.deleteBank(bank.id)}
-                  className="btn btn-danger"
-                >
-                  Delete
-                </button>
-              </td>
+  return (
+    <div className="card">
+      <div className="card-body">
+      <h4 className="text-center">Bank accounts</h4>
+        <table class="table">
+          <thead >
+            <tr>
+              <th>#</th>
+              <th>Account number</th>
+              <th>Trust</th>
+              <th>Transaction fee</th>
+              <th>Client name</th>
+              <th>Client Age</th>
+              <th>LS score</th>
+              <th></th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    );
-  }
+          </thead>
+          <tbody>
+            {banks.map((bank) => (
+              <tr key={bank.id}>
+                <td>{bank.id}</td>
+                <td>{bank.accountNumber}</td>
+                <td>{bank.trust}</td>
+                <td>{bank.transactionFee}</td>
+                <td>{bank.personName}</td>
+                <td>{bank.age}</td>
+                <td>{bank.levenshteinScore}</td>
+                <td>
+                  <button
+                    onClick={() => deleteBank(bank.id)}
+                    className="btn btn-outline-danger my-2 my-sm-0"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
 }
 
 export default BankComponent;

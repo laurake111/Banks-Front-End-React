@@ -1,38 +1,16 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import BankService from "../services/BankService";
 
-class CreateBankComponent extends Component {
-  constructor(props) {
-    super(props);
+const CreateBankComponent = () => {
+  const [accountNumber, setAccountNumber] = useState("");
+  const [trust, setTrust] = useState("");
+  const [transactionFee, setTransactionFee] = useState("");
+  const [personName, setPerson] = useState("");
+  const [age, setAge] = useState("");
 
-    this.state = {
-      accountNumber: "",
-      trust: "",
-      transactionFee: "",
-      personName: "",
-      age: "",
-    };
-
-    this.changeAccountNumberHandler =
-      this.changeAccountNumberHandler.bind(this);
-    this.changeTrustHandler = this.changeTrustHandler.bind(this);
-    this.changeTransactionFeeHandler =
-      this.changeTransactionFeeHandler.bind(this);
-    this.changePersonNameHandler = this.changePersonNameHandler.bind(this);
-    this.changeAgeHandler = this.changeAgeHandler.bind(this);
-    this.saveBank = this.saveBank.bind(this);
-  }
-
-  saveBank = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    let bank = {
-      accountNumber: this.state.accountNumber,
-      trust: this.state.trust,
-      transactionFee: this.state.transactionFee,
-      personName: this.state.personName,
-      age: this.state.age,
-    };
+    const bank = { accountNumber, trust, transactionFee, personName, age };
 
     console.log("bank => " + JSON.stringify(bank));
 
@@ -40,82 +18,58 @@ class CreateBankComponent extends Component {
     window.location.reload();
   };
 
-  changeAccountNumberHandler = (event) => {
-    this.setState({ accountNumber: event.target.value });
-  };
-
-  changeTrustHandler = (event) => {
-    this.setState({ trust: event.target.value });
-  };
-
-  changeTransactionFeeHandler = (event) => {
-    this.setState({ transactionFee: event.target.value });
-  };
-
-  changePersonNameHandler = (event) => {
-    this.setState({ personName: event.target.value });
-  };
-
-  changeAgeHandler = (event) => {
-    this.setState({ age: event.target.value });
-  };
-
-  render() {
-    return (
-      <>
-        <div className="card col-md-6 offset-md-3 offset-md-3">
-          <div className="card-body">
-            <h4 className="text-center">Add a new bank account</h4>
-            <form onSubmit={this.handleSubmit}>
-              <div className="form-group">
-                <label>Account number</label>
-                <input
-                  className="form-control"
-                  value={this.state.accountNumber}
-                  onChange={this.changeAccountNumberHandler}
-                ></input>
-              </div>
-              <div className="form-group">
-                <label>Trust</label>
-                <input
-                  className="form-control"
-                  value={this.state.trust}
-                  onChange={this.changeTrustHandler}
-                ></input>
-              </div>
-              <div className="form-group">
-                <label>Transaction fee</label>
-                <input
-                  className="form-control"
-                  value={this.state.transactionFee}
-                  onChange={this.changeTransactionFeeHandler}
-                ></input>
-              </div>
-              <div className="form-group">
-                <label>Client name</label>
-                <input
-                  className="form-control"
-                  value={this.state.personName}
-                  onChange={this.changePersonNameHandler}
-                ></input>
-              </div>
-              <div className="form-group">
-                <label>Client age</label>
-                <input
-                  className="form-control"
-                  value={this.state.age}
-                  onChange={this.changeAgeHandler}
-                ></input>
-              </div>
-              <button onClick={this.saveBank} className="btn btn-primary">
-                Add
-              </button>
-            </form>
-          </div>
+  return (
+    <>
+      <div className="card">
+        <div className="card-body">
+          <h4 className="text-center">Add a new bank account</h4>
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label>Account number</label>
+              <input
+                className="form-control"
+                value={accountNumber}
+                onChange={(e) => setAccountNumber(e.target.value)}
+              ></input>
+            </div>
+            <div className="form-group">
+              <label>Trust</label>
+              <input
+                className="form-control"
+                value={trust}
+                onChange={(e) => setTrust(e.target.value)}
+              ></input>
+            </div>
+            <div className="form-group">
+              <label>Transaction fee</label>
+              <input
+                className="form-control"
+                value={transactionFee}
+                onChange={(e) => setTransactionFee(e.target.value)}
+              ></input>
+            </div>
+            <div className="form-group">
+              <label>Client name</label>
+              <input
+                className="form-control"
+                value={personName}
+                onChange={(e) => setPerson(e.target.value)}
+              ></input>
+            </div>
+            <div className="form-group">
+              <label>Client age</label>
+              <input
+                className="form-control"
+                value={age}
+                onChange={(e) => setAge(e.target.value)}
+              ></input>
+            </div>
+            <button class="btn btn-outline-primary my-2 my-sm-0">Add</button>
+          </form>
         </div>
-      </>
-    );
-  }
-}
+      </div>
+    </>
+  );
+};
 
 export default CreateBankComponent;

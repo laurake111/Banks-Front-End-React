@@ -1,3 +1,18 @@
 .App {
     text-align: center;
 }
+
+* {
+    font-family: "Quicksand";
+    color: #333;
+  }
+  .navbar {
+    margin-bottom: 15px;
+  }
+  .navbar h1 {
+    color: #1f74f3;
+  }
+  .navbar .links {
+    margin-left: auto;
+  }
+ 

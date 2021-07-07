@@ -8,6 +8,10 @@ class BankService {
         return axios.get(BANKS_REST_API_URL);
     }
 
+    getBankById(BankId) {
+        return axios.get(BANKS_REST_API_URL  + '/' + BankId);
+    }
+
     createBank(bank) {
         return axios.post(BANKS_REST_API_URL, bank);
     }
