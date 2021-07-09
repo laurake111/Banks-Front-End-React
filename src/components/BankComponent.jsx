@@ -15,17 +15,18 @@ function BankComponent() {
     // empty dependency array [] means this effect will only run once (like componentDidMount in classes)
   }, []);
 
-  async function deleteBank(bankId) {
-    await BankService.deleteBank(bankId);
-    window.location.reload();
-  }
+  const handleDelete = (bankId) => {
+    const tempBanks = banks.filter((bank) => bank.id !== bankId);
+    BankService.deleteBank(bankId);
+    setBanks(tempBanks)
+  };
 
   return (
     <div className="card">
       <div className="card-body">
-      <h4 className="text-center">Bank accounts</h4>
+        <h4 className="text-center">Bank accounts</h4>
         <table class="table">
-          <thead >
+          <thead>
             <tr>
               <th>#</th>
               <th>Account number</th>
@@ -49,7 +50,7 @@ function BankComponent() {
                 <td>{bank.levenshteinScore}</td>
                 <td>
                   <button
-                    onClick={() => deleteBank(bank.id)}
+                    onClick={() => handleDelete(bank.id)}
                     className="btn btn-outline-danger my-2 my-sm-0"
                   >
                     Delete

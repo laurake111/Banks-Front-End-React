@@ -10,6 +10,7 @@ const CreateBankComponent = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+       
     const bank = { accountNumber, trust, transactionFee, personName, age };
 
     console.log("bank => " + JSON.stringify(bank));
@@ -29,6 +30,7 @@ const CreateBankComponent = () => {
               <input
                 className="form-control"
                 value={accountNumber}
+                type="text"
                 onChange={(e) => setAccountNumber(e.target.value)}
               ></input>
             </div>
@@ -37,6 +39,7 @@ const CreateBankComponent = () => {
               <input
                 className="form-control"
                 value={trust}
+                type="number"
                 onChange={(e) => setTrust(e.target.value)}
               ></input>
             </div>
@@ -45,6 +48,7 @@ const CreateBankComponent = () => {
               <input
                 className="form-control"
                 value={transactionFee}
+                type="number"
                 onChange={(e) => setTransactionFee(e.target.value)}
               ></input>
             </div>
@@ -52,6 +56,7 @@ const CreateBankComponent = () => {
               <label>Client name</label>
               <input
                 className="form-control"
+                type="text"
                 value={personName}
                 onChange={(e) => setPerson(e.target.value)}
               ></input>
@@ -60,6 +65,7 @@ const CreateBankComponent = () => {
               <label>Client age</label>
               <input
                 className="form-control"
+                type="number"
                 value={age}
                 onChange={(e) => setAge(e.target.value)}
               ></input>
