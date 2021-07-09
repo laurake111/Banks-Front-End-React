@@ -1,24 +1,25 @@
 import React, { useState, useEffect } from "react";
 import BankService from "../services/BankService";
+import { Link } from "react-router-dom";
 
 function BankComponent() {
   const [banks, setBanks] = useState([]);
-  //const [bankId, setId] = useState([1]);
+
   useEffect(() => {
     const fetchBanks = async () => {
       const result = await BankService.getBanks();
+      console.log(result);
       setBanks(result.data);
     };
 
     fetchBanks();
-
     // empty dependency array [] means this effect will only run once (like componentDidMount in classes)
   }, []);
 
   const handleDelete = (bankId) => {
     const tempBanks = banks.filter((bank) => bank.id !== bankId);
     BankService.deleteBank(bankId);
-    setBanks(tempBanks)
+    setBanks(tempBanks);
   };
 
   return (
@@ -48,6 +49,15 @@ function BankComponent() {
                 <td>{bank.personName}</td>
                 <td>{bank.age}</td>
                 <td>{bank.levenshteinScore}</td>
+                <td>
+                  <Link to={`/banks/${bank.id}`}>
+                    <button
+                      className="btn btn-outline-primary my-2 my-sm-0"
+                    >
+                      View details
+                    </button>
+                  </Link>
+                </td>
                 <td>
                   <button
                     onClick={() => handleDelete(bank.id)}

@@ -9,7 +9,7 @@ class BankService {
     }
 
     getBankById(BankId) {
-        return axios.get(BANKS_REST_API_URL  + '/' + BankId);
+        return axios.get(BANKS_REST_API_URL  + BankId);
     }
 
     createBank(bank) {
@@ -17,7 +17,7 @@ class BankService {
     }
 
     deleteBank(BankId) {
-        return axios.delete(BANKS_REST_API_URL + '/' + BankId)
+        return axios.delete(BANKS_REST_API_URL + BankId)
     }
 }
 

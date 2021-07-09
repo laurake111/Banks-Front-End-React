@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import BankService from "../services/BankService";
+import { Link, Redirect } from "react-router-dom";
 
 const CreateBankComponent = () => {
   const [accountNumber, setAccountNumber] = useState("");
@@ -10,18 +11,19 @@ const CreateBankComponent = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-       
+
     const bank = { accountNumber, trust, transactionFee, personName, age };
 
     console.log("bank => " + JSON.stringify(bank));
 
     BankService.createBank(bank);
-    window.location.reload();
+
+    window.location.href = "http://localhost:3000/";
   };
 
   return (
-    <>
-      <div className="card">
+    <div className="container">
+      <div className="card create ">
         <div className="card-body">
           <h4 className="text-center">Add a new bank account</h4>
           <form onSubmit={handleSubmit}>
@@ -70,11 +72,13 @@ const CreateBankComponent = () => {
                 onChange={(e) => setAge(e.target.value)}
               ></input>
             </div>
-            <button class="btn btn-outline-primary my-2 my-sm-0">Add</button>
+            <button className="btn btn-outline-primary my-2 my-sm-0">
+              Add
+            </button>
           </form>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
