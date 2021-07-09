@@ -23,54 +23,48 @@ function BankComponent() {
   };
 
   return (
-    <div className="card">
-      <div className="card-body">
-        <h4 className="text-center">Bank accounts</h4>
-        <table class="table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Account number</th>
-              <th>Trust</th>
-              <th>Transaction fee</th>
-              <th>Client name</th>
-              <th>Client Age</th>
-              <th>LS score</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {banks.map((bank) => (
-              <tr key={bank.id}>
-                <td>{bank.id}</td>
-                <td>{bank.accountNumber}</td>
-                <td>{bank.trust}</td>
-                <td>{bank.transactionFee}</td>
-                <td>{bank.personName}</td>
-                <td>{bank.age}</td>
-                <td>{bank.levenshteinScore}</td>
-                <td>
-                  <Link to={`/banks/${bank.id}`}>
-                    <button
-                      className="btn btn-outline-primary my-2 my-sm-0"
-                    >
-                      View details
-                    </button>
-                  </Link>
-                </td>
-                <td>
-                  <button
-                    onClick={() => handleDelete(bank.id)}
-                    className="btn btn-outline-danger my-2 my-sm-0"
-                  >
-                    Delete
+    <div className="">
+      <h4 className="text-center">Bank accounts</h4>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Account number</th>
+            <th>Trust</th>
+            <th>Transaction fee</th>
+            <th>Client name</th>
+            <th>Client Age</th>
+            <th>LS score</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {banks.map((bank) => (
+            <tr key={bank.id}>
+              <td>{bank.id}</td>
+              <td>{bank.accountNumber}</td>
+              <td>{bank.trust}</td>
+              <td>{bank.transactionFee}</td>
+              <td>{bank.personName}</td>
+              <td>{bank.age}</td>
+              <td>{bank.levenshteinScore}</td>
+              <td>
+                <Link to={`/banks/${bank.id}`}>
+                  <button className="btn btn-outline-primary my-2 my-sm-0">
+                    Details
                   </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+                </Link>
+                <button
+                  onClick={() => handleDelete(bank.id)}
+                  className="btn btn-outline-danger my-2 my-sm-0"
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
